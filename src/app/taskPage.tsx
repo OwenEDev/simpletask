@@ -3,21 +3,21 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import TaskCard from "./components/taskCard";
 import React from "react";
+import { Task } from "./types";
 
-interface Task {
-  id: string;
-  title: string;
-}
+
 
 export default function TaskPage() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTask, setNewTask] = useState("");
+  const [editingTask, setEditingTask] = useState<string | null>(null);
+  const [updatedTitle, setUpdatedTitle] = useState("");
 
   useEffect(() => {
     // Fetch tasks from API (mocked for now)
     setTasks([
-      { id: "1", title: "Sample Task 1" },
-      { id: "2", title: "Sample Task 2" },
+      { id: "1", title: "Make task manager app" },
+      { id: "2", title: "Send app to recruiter" },
     ]);
   }, []);
 
@@ -30,6 +30,16 @@ export default function TaskPage() {
 
   const deleteTask = (id: string) => {
     setTasks(tasks.filter(task => task.id !== id));
+  };
+
+  const startEditing = (task: Task) => {
+    setEditingTask(task.id);
+    setUpdatedTitle(task.title);
+  };
+
+  const updateTask = (id: string) => {
+    setTasks(tasks.map(task => task.id === id ? { ...task, title: updatedTitle } : task));
+    setEditingTask(null);
   };
 
   return (
@@ -52,7 +62,7 @@ export default function TaskPage() {
       <div className="space-y-2">
         {tasks.map((task) => (
         <React.Fragment key={task.id}>
-          <TaskCard task={task} deleteTask={deleteTask}/>
+          <TaskCard task={task} deleteTask={deleteTask} editingTask={editingTask} updatedTitle={updatedTitle} setUpdatedTitle={setUpdatedTitle} updateTask={updateTask} startEditing={startEditing}/>
           </React.Fragment>
         ))}
       </div>
