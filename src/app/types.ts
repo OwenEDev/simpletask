@@ -9,7 +9,7 @@ interface TaskManagerProps {
     editingTask: string | null;
     updatedTitle: string;
     setUpdatedTitle: (title: string) => void;
-    updateTask: (id: string) => void;
+    updateTask: (task: Task) => void;
     startEditing: (task: Task) => void;
   }
 

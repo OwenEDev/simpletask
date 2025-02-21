@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import TaskCard from "./components/taskCard";
 import React from "react";
 import { Task } from "./types";
-import { getTasks, addTask as apiAddTask, deleteTask as apiDeleteTask } from "./api/tasks";
+import { getTasks, addTask as apiAddTask, deleteTask as apiDeleteTask, updateTask as apiUpdateTask } from "./api/tasks";
 
 
 export default function TaskPage() {
@@ -38,8 +38,8 @@ export default function TaskPage() {
     setUpdatedTitle(task.title);
   };
 
-  const updateTask = (id: string) => {
-    setTasks(tasks.map(task => task.id === id ? { ...task, title: updatedTitle } : task));
+  const updateTask = (task: Task) => {
+    setTasks(tasks.map(thisTask => thisTask.id === task.id ? { ...thisTask, title: updatedTitle } : thisTask));
     setEditingTask(null);
   };
 

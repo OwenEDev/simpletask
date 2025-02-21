@@ -23,7 +23,7 @@ export default function TaskCard({task, deleteTask, editingTask, updatedTitle, s
                 {editingTask === task.id ? (
                   <button 
                     className="bg-green-500 text-white px-2 py-1 rounded"
-                    onClick={() => updateTask(task.id)}
+                    onClick={() => updateTask(task)}
                   >
                     Save
                   </button>
