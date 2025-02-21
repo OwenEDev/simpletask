@@ -17,7 +17,7 @@ export default function TaskCard({task, deleteTask, editingTask, updatedTitle, s
                   onChange={(e) => setUpdatedTitle(e.target.value)}
                 />
               ) : (
-                <span>{task.title}</span>
+                <span>{task.name}</span>
               )}
               <div className="flex gap-2">
                 {editingTask === task.id ? (

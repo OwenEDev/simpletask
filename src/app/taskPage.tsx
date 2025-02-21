@@ -9,7 +9,7 @@ import apiCalls from "./api/tasks";
 
 export default function TaskPage() {
 
-  const {getTasks, apiAddTask, apiDeleteTask, apiUpdateTask} = apiCalls();    
+  const {getTasks, apiAddTask, apiDeleteTask, apiUpdateTask, testTask} = apiCalls();    
 
 
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -40,12 +40,12 @@ export default function TaskPage() {
 
   const startEditing = (task: Task) => {
     setEditingTask(task.id);
-    setUpdatedTitle(task.title);
+    setUpdatedTitle(task.name);
   };
 
   const updateTask = (task: Task) => {
     setTasks(tasks.map(thisTask => thisTask.id === task.id ? { ...thisTask, title: updatedTitle } : thisTask));
-    apiUpdateTask(task);
+    apiUpdateTask(task.id, task.name);
     setEditingTask(null);
   };
 
@@ -64,6 +64,12 @@ export default function TaskPage() {
           onClick={addTask}
         >
           Add
+        </button>
+        <button 
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+          onClick={testTask}
+        >
+          Tets
         </button>
       </div>
 

@@ -18,12 +18,14 @@ export default function apiCalls() {
     return [...tasks];
   };
   
-   const apiAddTask = async (title: string) => {
+   const apiAddTask = async (name: string) => {
     await delay(500);
-    const newTask = { id: Date.now().toString(), title };
+    const newTask = { id: Date.now().toString(), name};
     // tasks.push(newTask);
     if (hubConnection) {
-        await hubConnection.invoke("addTask", newTask);
+        await hubConnection.invoke("AddTask", newTask.id, name)
+        .then(() => console.log('Task added'))
+        .catch(err => console.error("Error invoking AddTask", err))
     }
     return newTask;
   };
@@ -32,18 +34,30 @@ export default function apiCalls() {
     await delay(500);
     // tasks = tasks.filter(task => task.id !== id);
     if (hubConnection) {
-        await hubConnection.invoke("deleteTask", id)
+        await hubConnection.invoke("DeleteTask", id)
+        .then(() => console.log('Task deleted'))
+        .catch(err => console.error('Error deleting task', err));
     }
     return id;
   };
 
-   const apiUpdateTask = async (task: Task) => {
+   const apiUpdateTask = async (id: string, name:string ) => {
     if (hubConnection) {
-        await hubConnection.invoke("updateTask", task);
+        await hubConnection.invoke("UpdateTask", id, name)
+        .then(() => console.log('Task updated'))
+        .catch(err => console.error("Error updating task", err));
     }
   };
 
-  return {getTasks, apiAddTask, apiDeleteTask, apiUpdateTask}
+  const testTask = async () => {
+    if (hubConnection) {
+        await hubConnection.invoke("Test")
+        .then(() => console.log('test method invoked'))
+        .catch(err => console.error('error invoking test', err));
+    }
+  }
+
+  return {getTasks, apiAddTask, apiDeleteTask, apiUpdateTask, testTask}
 }
 
 

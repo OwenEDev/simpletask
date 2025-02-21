@@ -18,15 +18,15 @@ export default function useSignalR() {
       .catch(err => console.error('Connection failed: ', err));
 
     // Define event listeners
-    connection.on("taskAdded", (task: Task) => {
+    connection.on("AddTask", (task: Task) => {
       setTasks((prevTasks) => [...prevTasks, task]);
     });
 
-    connection.on("taskDeleted", (taskId: string) => {
-      setTasks((prevTasks) => prevTasks.filter(task => task.id !== taskId));
+    connection.on("DeleteTask", (taskid: string) => {
+      setTasks((prevTasks) => prevTasks.filter(task => task.id !== taskid));
     });
 
-    connection.on("taskUpdated", (updatedTask) => {
+    connection.on("UpdateTask", (updatedTask) => {
       setTasks((prevTasks) =>
         prevTasks.map((task) =>
           task.id === updatedTask.id ? updatedTask : task
