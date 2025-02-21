@@ -12,6 +12,8 @@ const webhookEndpoint = (event: string, taskData: { id: string, name: string }) 
             break;
         case 'task-updated': // Event when a task is updated
             handleTaskUpdated(taskData, timestamp);
+        case 'task-fetched':
+            handleTaskGet(timestamp);
         default:
             // Log any unknown event
             console.log(`[${timestamp}] Unknown event: ${event}`);
@@ -31,6 +33,10 @@ const webhookEndpoint = (event: string, taskData: { id: string, name: string }) 
   // Handler for task update event
   const handleTaskUpdated = (taskData: Task, timestamp: string) => {
     console.log(`[${timestamp}] Task Updated: ID = ${taskData.id}`);
+  };
+
+  const handleTaskGet = (timestamp: string) => {
+    console.log(`[${timestamp}] Tasks Fetched`);
   };
 
   export default webhookEndpoint;
