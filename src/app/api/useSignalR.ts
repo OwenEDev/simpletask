@@ -8,7 +8,9 @@ export default function useSignalR() {
 
   useEffect(() => {
     const connection = new signalR.HubConnectionBuilder()
-      .withUrl("http://your-backend-api-url/tasksHub") // Replace with your SignalR server URL
+      .withUrl('http://localhost:5077/hubs/taskhub', {
+        withCredentials: true
+      })
       .build();
 
     connection.start()
