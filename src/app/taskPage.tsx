@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import TaskCard from "./components/taskCard";
 import React from "react";
 import { Task } from "./types";
-
+import { getTasks, addTask as apiAddTask, deleteTask as apiDeleteTask } from "./api/tasks";
 
 
 export default function TaskPage() {
@@ -14,21 +14,22 @@ export default function TaskPage() {
   const [updatedTitle, setUpdatedTitle] = useState("");
 
   useEffect(() => {
-    // Fetch tasks from API (mocked for now)
-    setTasks([
-      { id: "1", title: "Make task manager app" },
-      { id: "2", title: "Send app to recruiter" },
-    ]);
+    const fetchTasks = async () => {
+        const fetchedTasks = await getTasks();
+        setTasks(fetchedTasks);
+      };
+    fetchTasks();
   }, []);
 
-  const addTask = () => {
+  const addTask = async () => {
     if (!newTask.trim()) return;
-    const task = { id: Date.now().toString(), title: newTask };
+    const task = await apiAddTask(newTask)
     setTasks([...tasks, task]);
     setNewTask("");
   };
 
-  const deleteTask = (id: string) => {
+  const deleteTask = async (id: string) => {
+    await apiDeleteTask(id)
     setTasks(tasks.filter(task => task.id !== id));
   };
 
@@ -59,6 +60,7 @@ export default function TaskPage() {
           Add
         </button>
       </div>
+
       <div className="space-y-2">
         {tasks.map((task) => (
         <React.Fragment key={task.id}>
