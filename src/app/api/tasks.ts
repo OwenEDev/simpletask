@@ -47,7 +47,7 @@ export default function apiCalls() {
    const apiUpdateTask = async (id: string, name:string ) => {
     if (hubConnection) {
         await hubConnection.invoke("UpdateTask", id, name)
-        .then(() => webhookEndpoint('task-deleted', {id, name}))
+        .then(() => webhookEndpoint('task-updated', {id, name}))
         .catch(err => console.error("Error updating task", err));
     }
   };
