@@ -4,14 +4,19 @@ import { motion } from "framer-motion";
 import TaskCard from "./components/taskCard";
 import React from "react";
 import { Task } from "./types";
-import { getTasks, addTask as apiAddTask, deleteTask as apiDeleteTask, updateTask as apiUpdateTask } from "./api/tasks";
+import apiCalls from "./api/tasks";
 
 
 export default function TaskPage() {
+
+  const {getTasks, apiAddTask, apiDeleteTask, apiUpdateTask} = apiCalls();    
+
+
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTask, setNewTask] = useState("");
   const [editingTask, setEditingTask] = useState<string | null>(null);
   const [updatedTitle, setUpdatedTitle] = useState("");
+  
 
   useEffect(() => {
     const fetchTasks = async () => {

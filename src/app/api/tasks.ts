@@ -6,17 +6,18 @@ import useSignalR from "./useSignalR"
 //     { id: "2", title: "Send app to recruiter" },
 //   ];
 
-let { tasks, hubConnection } = useSignalR();
+export default function apiCalls() {
+    let { tasks, hubConnection } = useSignalR();
   
   // Simulate a delay for API calls
   const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
   
-  export const getTasks = async () => {
+   const getTasks = async () => {
     await delay(500); // Simulate network delay
     return [...tasks];
   };
   
-  export const addTask = async (title: string) => {
+   const apiAddTask = async (title: string) => {
     await delay(500);
     const newTask = { id: Date.now().toString(), title };
     // tasks.push(newTask);
@@ -26,7 +27,7 @@ let { tasks, hubConnection } = useSignalR();
     return newTask;
   };
   
-  export const deleteTask = async (id: string) => {
+   const apiDeleteTask = async (id: string) => {
     await delay(500);
     // tasks = tasks.filter(task => task.id !== id);
     if (hubConnection) {
@@ -35,9 +36,14 @@ let { tasks, hubConnection } = useSignalR();
     return id;
   };
 
-  export const updateTask = async (task: Task) => {
+   const apiUpdateTask = async (task: Task) => {
     if (hubConnection) {
         await hubConnection.invoke("updateTask", task);
     }
   };
+
+  return {getTasks, apiAddTask, apiDeleteTask, apiUpdateTask}
+}
+
+
   
