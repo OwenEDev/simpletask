@@ -43,8 +43,6 @@ export default function TaskPage() {
     setUpdatedTitle(task.name);
   };
 
-  useEffect(() => {console.log(updatedTitle)}, [updatedTitle])
-
   const updateTask = (task: Task) => {
     setTasks(tasks.map(thisTask => thisTask.id === task.id ? { ...thisTask, name: updatedTitle } : thisTask));
     apiUpdateTask(task.id, task.name);
