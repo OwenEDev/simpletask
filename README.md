@@ -1,15 +1,25 @@
 ## Running the web app
+Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
 
-First, run the development server:
+Then, run the development server:
 
 ```bash
 npm run dev
 # or
 yarn dev
+```
+Or if you prefer, build and start:
+```bash
+npm build
+npm start
 # or
-pnpm dev
-# or
-bun dev
+yarn build
+yarn start
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
