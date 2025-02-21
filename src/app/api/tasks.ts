@@ -1,12 +1,13 @@
 import { Task } from "../types";
 import useSignalR from "./useSignalR"
 
-// let tasks = [
+
+export default function apiCalls() {
+    // let tasks = [
 //     { id: "1", title: "Make task manager app" },
 //     { id: "2", title: "Send app to recruiter" },
 //   ];
 
-export default function apiCalls() {
     let { tasks, hubConnection } = useSignalR();
   
   // Simulate a delay for API calls

@@ -45,6 +45,7 @@ export default function TaskPage() {
 
   const updateTask = (task: Task) => {
     setTasks(tasks.map(thisTask => thisTask.id === task.id ? { ...thisTask, title: updatedTitle } : thisTask));
+    apiUpdateTask(task);
     setEditingTask(null);
   };
 
