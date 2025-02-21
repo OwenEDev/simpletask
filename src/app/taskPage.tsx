@@ -9,7 +9,7 @@ import apiCalls from "./api/tasks";
 
 export default function TaskPage() {
 
-  const {getTasks, apiAddTask, apiDeleteTask, apiUpdateTask, testTask} = apiCalls();    
+  const {getTasks, apiAddTask, apiDeleteTask, apiUpdateTask} = apiCalls();    
 
 
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -66,12 +66,6 @@ export default function TaskPage() {
           onClick={addTask}
         >
           Add
-        </button>
-        <button 
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-          onClick={testTask}
-        >
-          Tets
         </button>
       </div>
 

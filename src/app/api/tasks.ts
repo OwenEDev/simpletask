@@ -1,5 +1,6 @@
 import { Task } from "../types";
 import useSignalR from "./useSignalR"
+import webhookEndpoint from "./webHookEndpoint";
 
 
 export default function apiCalls() {
@@ -24,9 +25,10 @@ export default function apiCalls() {
     // tasks.push(newTask);
     if (hubConnection) {
         await hubConnection.invoke("AddTask", newTask.id, name)
-        .then(() => console.log('Task added'))
+        .then(() => webhookEndpoint('task-created', newTask))
         .catch(err => console.error("Error invoking AddTask", err))
     }
+  
     return newTask;
   };
   
@@ -35,29 +37,22 @@ export default function apiCalls() {
     // tasks = tasks.filter(task => task.id !== id);
     if (hubConnection) {
         await hubConnection.invoke("DeleteTask", id)
-        .then(() => console.log('Task deleted'))
+        .then(() => webhookEndpoint('task-deleted', {id, name: ''}))
         .catch(err => console.error('Error deleting task', err));
     }
+
     return id;
   };
 
    const apiUpdateTask = async (id: string, name:string ) => {
     if (hubConnection) {
         await hubConnection.invoke("UpdateTask", id, name)
-        .then(() => console.log('Task updated'))
+        .then(() => webhookEndpoint('task-deleted', {id, name}))
         .catch(err => console.error("Error updating task", err));
     }
   };
 
-  const testTask = async () => {
-    if (hubConnection) {
-        await hubConnection.invoke("Test")
-        .then(() => console.log('test method invoked'))
-        .catch(err => console.error('error invoking test', err));
-    }
-  }
-
-  return {getTasks, apiAddTask, apiDeleteTask, apiUpdateTask, testTask}
+  return {getTasks, apiAddTask, apiDeleteTask, apiUpdateTask}
 }
 
 
