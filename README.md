@@ -21,6 +21,10 @@ npm start
 yarn build
 yarn start
 ```
+Then, run the backend project with
+```bash
+dotnet run
+```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
